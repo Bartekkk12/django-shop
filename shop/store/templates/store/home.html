@@ -1,0 +1,8 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    {% for review in reviews %}
+        <strong>{{review.product.name}} - {{review.rating}}/5 ⭐</strong>
+        <p>{{review.content}}</p>
+    {% endfor %}
+{% endblock content%}

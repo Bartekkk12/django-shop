@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# User
+
+AUTH_USER_MODEL = 'store.User'
 
 # Application definition
 
