@@ -1,9 +1,8 @@
-{% block content %}
-    <h1>Whey Protein</h1>
-    <br>
+{% extends 'main.html' %}
 
+{% block content %}
     {% for product in products %}
-        <strong>{{ product.name }}</strong>
+        <a href=" {% url 'product_detail' slug=product.slug %}"><strong>{{ product.name }}</strong></a>
         <p>{{ product.price }}$</p>
         <br>
     {% endfor %}

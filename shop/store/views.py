@@ -24,3 +24,10 @@ def category_detail(request, slug):
     context = {'category': category, 'products': products}
     
     return render(request, 'store/category_detail.html', context)
+
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    product_reviews = Review.objects.filter(product=product)
+    context = {'product': product, 'product_reviews': product_reviews}
+    
+    return render(request, 'store/product_detail.html', context)

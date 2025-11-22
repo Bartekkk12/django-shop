@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    {% if product %}
+        <h1>{{ product.name }}</h1>
+        <h3>{{ product.flavor }}</h3>
+        <strong>{{ product.price }}$</strong>
+        <br>
+
+        {% for review in product_reviews %}
+            <p>{{ review }}</p>
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock content %}
