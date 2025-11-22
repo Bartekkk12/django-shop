@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Category, Product, Review
 
@@ -11,3 +11,16 @@ def home(request):
     context = {'categories': categories, 'products': products, 'reviews': reviews}
     
     return render(request, 'store/home.html', context)
+
+def category_list(request):
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    
+    return render(request, 'store/category_list.html', context)
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(category=category)
+    context = {'category': category, 'products': products}
+    
+    return render(request, 'store/category_detail.html', context)

@@ -14,12 +14,14 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        
         return user
     
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('role', 'admin')
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        
         return self.create_user(email, password, **extra_fields)
 
 
@@ -51,7 +53,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
     name = models.CharField(max_length=128)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     
     def __str__(self):
         return self.name
@@ -72,7 +74,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=128)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
     nutrition = models.TextField(blank=True)
     ingredients = models.TextField(blank=True)

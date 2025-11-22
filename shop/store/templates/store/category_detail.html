@@ -1,0 +1,11 @@
+{% block content %}
+    <h1>Whey Protein</h1>
+    <br>
+
+    {% for product in products %}
+        <strong>{{ product.name }}</strong>
+        <p>{{ product.price }}$</p>
+        <br>
+    {% endfor %}
+
+{% endblock content %}
