@@ -12,6 +12,10 @@
             <p>{{ review }}</p>
         {% endfor %}
 
+        {% for flavor in flavors %}
+            <button>{{ flavor.name }}</button>
+        {% endfor %}
+
     {% endif %}
 
 {% endblock content %}

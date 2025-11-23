@@ -36,7 +36,7 @@ class User(AbstractUser):
     objects = UserManager()
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
-    email = models.EmailField(('email address'), unique=True)
+    email = models.EmailField('email address', unique=True)
     phone_number = models.CharField(max_length=10, unique=True, validators=[RegexValidator(r'^\d{9}$', 'Enter a valid 9-digit phone number')])
     is_verified = models.BooleanField(default=False)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='customer')
@@ -71,6 +71,7 @@ class Category(models.Model):
         
     def get_absolute_url(self):
         return reverse('category_detail', kwargs={'slug': self.slug})
+    
 
 class Product(models.Model):
     name = models.CharField(max_length=128)
@@ -78,7 +79,6 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     nutrition = models.TextField(blank=True, null=True)
     ingredients = models.TextField(blank=True, null=True)
-    flavor = models.CharField(max_length=50, blank=True, null=True)
     method_of_use = models.TextField(blank=True, null=True)
     
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -107,6 +107,14 @@ class Product(models.Model):
         
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
+     
+     
+class Flavor(models.Model):
+    name = models.CharField(max_length=128)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='flavors')
+    
+    def __str__(self):
+        return self.name         
             
 
 class Review(models.Model):

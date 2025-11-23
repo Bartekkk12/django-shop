@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 
-from .models import Category, Product, Review
+from .models import Category, Product, Review, Flavor
 
 # Create your views here.
 
@@ -28,6 +28,7 @@ def category_detail(request, slug):
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
     product_reviews = Review.objects.filter(product=product)
-    context = {'product': product, 'product_reviews': product_reviews}
+    flavors = product.flavors.all()
+    context = {'product': product, 'product_reviews': product_reviews, 'flavors': flavors}
     
     return render(request, 'store/product_detail.html', context)
