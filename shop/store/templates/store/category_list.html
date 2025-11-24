@@ -1,4 +1,9 @@
-{% for category in categories %}
-    <a href="{% url 'category' slug=category.slug %}">{{ category.name }}</a>
-    <br>
-{% endfor %}
+{% extends 'main.html' %}
+
+
+{% block content %}
+    {% for category in categories %}
+        <a href="{% url 'category' slug=category.slug %}">{{ category.name }}</a>
+        <br>
+    {% endfor %}
+{% endblock content%}

@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import login, logout
 
 from .models import Category, Product, Review, Flavor
+from .forms import RegisterForm, LoginForm
 
 # Create your views here.
 
@@ -11,6 +13,35 @@ def home(request):
     context = {'categories': categories, 'products': products, 'reviews': reviews}
     
     return render(request, 'store/home.html', context)
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = RegisterForm()
+
+    context = {'form': form}
+    return render(request, 'store/register.html', context)
+
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = LoginForm()
+
+    context = {'form': form}
+    return render(request, 'store/login.html', context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
 def category_list(request):
     categories = Category.objects.all()
