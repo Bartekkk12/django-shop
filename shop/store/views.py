@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout
 
-from .models import Category, Product, Review, Flavor
+from .models import Category, Product, Review, User
 from .forms import RegisterForm, LoginForm
 
 # Create your views here.
@@ -28,7 +28,7 @@ def register_user(request):
 
 def login_user(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
