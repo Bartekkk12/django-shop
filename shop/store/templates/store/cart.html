@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    {% for item in cart_items %}
+        <strong>{{ item.product.name }}</strong>
+        <br>
+        <p>Quantity: {{item.quantity}}</picture>
+        <p>Total price: {{ item.get_total_price }}$</p>
+    {% endfor%}
+{% endblock content %}

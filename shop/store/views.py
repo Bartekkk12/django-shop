@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout
 
-from .models import Category, Product, Review, User
+from .models import Category, Product, Review, Cart, CartItem
 from .forms import RegisterForm, LoginForm
 
 # Create your views here.
@@ -41,7 +41,15 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
+    
     return redirect('home')
+
+def cart(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_items = cart.items.all()
+    context = {'cart_items': cart_items, 'cart': cart}
+    
+    return render(request, 'store/cart.html', context)
 
 def category_list(request):
     categories = Category.objects.all()
