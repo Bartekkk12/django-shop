@@ -8,14 +8,16 @@
         <strong>{{ product.price }}$</strong>
         <br>
 
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            <button type="submit">Add to cart</button>
+        </form>
+
         {% for review in product_reviews %}
             <p>{{ review }}</p>
         {% endfor %}
-
-        {% for flavor in flavors %}
-            <button>{{ flavor.name }}</button>
-        {% endfor %}
-
     {% endif %}
 
 {% endblock content %}
