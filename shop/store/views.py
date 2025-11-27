@@ -47,6 +47,12 @@ def logout_user(request):
     
     return redirect('home')
 
+def user_account(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    return render(request, 'store/user_account.html')
+
 def cart(request):
     if request.user.is_authenticated:
         cart, _ = Cart.objects.get_or_create(user=request.user)

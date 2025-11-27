@@ -15,8 +15,11 @@
             <button type="submit">Add to cart</button>
         </form>
 
+        <strong>Reviews:</strong>
         {% for review in product_reviews %}
-            <p>{{ review }}</p>
+            <p>{{ review.rating }}/5</p>
+            <p>{{ review.content }}</p>
+            <p>{{ review.created_at|date:"Y-m-d" }} by {{ review.author.name }}</p>
         {% endfor %}
     {% endif %}
 
