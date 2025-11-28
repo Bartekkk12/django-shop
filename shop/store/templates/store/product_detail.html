@@ -5,7 +5,13 @@
     {% if product %}
         <h1>{{ product.name }}</h1>
         <h3>{{ product.flavor }}</h3>
-        <strong>{{ product.price }}$</strong>
+        {% if product.amounts.exists %}
+            {% with amount=product.amounts.first %}
+                <strong>{{ amount.price }}$</strong>
+            {% endwith %}
+        {% else %}
+            <strong>{{ product.price }}$</strong>
+        {% endif %}
         <br>
 
         <form method="POST">

@@ -81,7 +81,7 @@ class Product(models.Model):
     ingredients = models.TextField(blank=True, null=True)
     method_of_use = models.TextField(blank=True, null=True)
     
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     stock = models.PositiveBigIntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     is_active = models.BooleanField(default=True)
@@ -114,7 +114,16 @@ class Flavor(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='flavors')
     
     def __str__(self):
-        return self.name         
+        return self.name     
+    
+
+class Amount(models.Model):
+    size =  models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='amounts')
+    
+    def __str__(self):
+        return self.size
             
 
 class Review(models.Model):

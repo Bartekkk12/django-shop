@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout
 
-from .models import Category, Product, Review, Cart, CartItem
+from .models import Category, Product, Review, Cart, CartItem, Amount
 from .forms import RegisterForm, LoginForm, AddToCartForm
 
 # Create your views here.
@@ -84,6 +84,7 @@ def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
     product_reviews = Review.objects.filter(product=product)
     flavors = product.flavors.all()
+    amounts = product.amounts.all()
     
     if request.method == 'POST':
         form = AddToCartForm(request.POST, product=product)
@@ -104,7 +105,13 @@ def product_detail(request, slug):
     else:
         form = AddToCartForm(product=product)
     
-    context = {'product': product, 'product_reviews': product_reviews, 'flavors': flavors, 'form': form}
+    context = {
+        'product': product, 
+        'product_reviews': product_reviews, 
+        'flavors': flavors, 
+        'form': form,
+        'amounts': amounts
+    }
     
     return render(request, 'store/product_detail.html', context)
 

@@ -3,7 +3,11 @@
 {% block content %}
     {% for product in products %}
         <a href=" {% url 'product_detail' slug=product.slug %}"><strong>{{ product.name }}</strong></a>
-        <p>{{ product.price }}$</p>
+        {% if product.price %}
+            <p>{{ product.price }}$</p>
+        {% else %}
+            <p>{{ product.amount.price }}$</p>
+        {% endif %}
         <br>
     {% endfor %}
 
