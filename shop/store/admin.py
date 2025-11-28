@@ -7,8 +7,9 @@ from . import models
 admin.site.register(models.User)
 admin.site.register(models.Category)
 admin.site.register(models.Product)
+admin.site.register(models.ProductVariant)
+admin.site.register(models.Flavor)
 admin.site.register(models.Review)
 admin.site.register(models.Cart)
 admin.site.register(models.CartItem)
-admin.site.register(models.Flavor)
-admin.site.register(models.Amount)
+
